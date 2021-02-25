@@ -1,4 +1,4 @@
-
+package src;
 //package line only needed by netbeans
 //package caesarcipher;
 
@@ -8,13 +8,13 @@ import java.util.*;
  * @author Nick Carlson
  */
 
-public class CaesarCipher {
+class CaesarCipher {
 
     //main driver of the program
     public static void main(String[] args) {
         getInputAndRunCaesar();
     }
-    
+
     //accept input from the user, encrypt and decrypt if acceptable, terminate if unacceptable
     public static void getInputAndRunCaesar(){
         int shift = 0;
@@ -23,13 +23,13 @@ public class CaesarCipher {
         String origMessage;
         Scanner strReader = new Scanner(System.in);
         Scanner intReader = new Scanner(System.in);
-        
+
         //get message to encode from user
         System.out.println("Please enter the text you wish to encrypt. No numeric values are permitted!");
         System.out.println("You may use upper or lower case, and acceptable punctuation marks are '.' ',' '!' and '?'.");
         System.out.print("Your message: ");
         message = strReader.nextLine();
-        
+
         //ensure that input message contains no numeric values and is not empty
         if(message.matches(".*\\d.*")){
             System.out.println("Your input does not meet the criteria stated above.");
@@ -38,7 +38,7 @@ public class CaesarCipher {
             System.out.println("You didn't enter anything.");
             System.exit(0);
         }
-        
+
         //get cipher shift value from user and terminate if input is unacceptable
         System.out.println("Please enter an integer for the cipher shift.");
         System.out.println("Positive integers alphabetically shift right and negative integers alphabetically shift left.");
@@ -50,7 +50,7 @@ public class CaesarCipher {
             System.out.println("The shift value must be an integer.");
             System.exit(0);
         }
-        
+
         //run encryption on a timer and compute milliseconds
         long startTime1 = System.nanoTime();
         encMessage = encrypt(message,shift);
@@ -60,7 +60,7 @@ public class CaesarCipher {
         System.out.println();
         System.out.println("Encrypted message: " + encMessage);
         System.out.println("Encryption finished in: " + elapsedTime1 + " milliseconds.");
-        
+
         //run decryption on a timer and compute milliseconds
         long startTime2 = System.nanoTime();
         origMessage = decrypt(encMessage,shift);
@@ -71,19 +71,19 @@ public class CaesarCipher {
         System.out.println("Original message: " + origMessage);
         System.out.println("Decryption finished in: " + elapsedTime2 + " milliseconds.");
     }
-    
+
     //accepts unencrypted message and returns encrypted message
     public static String encrypt(String message, int shift){
-        
+
         //need an alphabet to use for character substitution
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         //convert message to upper case
         message = message.toUpperCase();
-        
+
         StringBuilder encMessage = new StringBuilder();
         int charPos, keyVal;
         char encVal;
-        
+
         /* iterate through message and either substitute in encoded characters
             or drop in spaces and punctuation, as needed */
         for(int i = 0; i < message.length(); i++){
@@ -114,19 +114,19 @@ public class CaesarCipher {
         //return encoded message
         return encMessage.toString();
     }
-    
+
     //accepts encrypted message and returns decrypted (original) message
     public static String decrypt(String encMessage, int shift){
-        
+
         //need an alphabet to use for character substitution
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         //convert encoded message to upper case
         encMessage = encMessage.toUpperCase();
-        
+
         StringBuilder origMessage = new StringBuilder();
         int charPos, keyVal;
         char repVal;
-        
+
         /* iterate through encrypted message and either substitute in un-encoded
             characters or drop in spaces and punctuation, as needed */
         for(int i = 0; i < encMessage.length(); i++){
@@ -157,5 +157,5 @@ public class CaesarCipher {
         //return un-encoded (orginal) message
         return origMessage.toString();
     }
-    
+
 }
